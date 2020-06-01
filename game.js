@@ -7,6 +7,10 @@ const result_p = document.querySelector(".result > p");
 const rock_div = document.getElementById("Rock");
 const paper_div = document.getElementById("Paper");
 const scissors_div = document.getElementById("Scissor");
+const glowTime = 500;
+const glowWin = "green-glow";
+const glowLose = "red-glow";
+const glowDraw = "grey-glow";
 
 function getComputerChoice() {
 	const choices = ['Rock', 'Paper', 'Scissor'];
@@ -18,23 +22,23 @@ function win(userChoice, computerChoice) {
 	userScore++;
 	updateScoreDisplay();
     result_p.innerHTML = `Your ${userChoice} beats Computer's ${computerChoice}. You Win!`;
-	document.getElementById(userChoice).classList.add('green-glow');
-	setTimeout(function() { document.getElementById(userChoice).classList.remove('green-glow') }, 500);
+	document.getElementById(userChoice).classList.add(glowWin);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove(glowWin) }, glowTime);
 }
 
 function lose(userChoice, computerChoice) {
 	computerScore++;
 	updateScoreDisplay();
     result_p.innerHTML = `Your ${userChoice} loses against Computer's ${computerChoice}. You Lost!`;
-	document.getElementById(userChoice).classList.add('red-glow');
-	setTimeout(function() { document.getElementById(userChoice).classList.remove('red-glow') }, 500);
+	document.getElementById(userChoice).classList.add(glowLose);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove(glowLose) }, glowTime);
 }
 
 function draw(userChoice, computerChoice) {
 	updateScoreDisplay();
     result_p.innerHTML = `Your ${userChoice} equals Computer's ${computerChoice}. Draw!`;
-	document.getElementById(userChoice).classList.add('grey-glow');
-	setTimeout(function() { document.getElementById(userChoice).classList.remove('grey-glow') }, 500);
+	document.getElementById(userChoice).classList.add(glowDraw);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove(glowDraw) }, glowTime);
 }
 
 function updateScoreDisplay() {
