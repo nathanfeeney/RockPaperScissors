@@ -10,7 +10,7 @@ const scissors_div = document.getElementById("s");
 
 function getComputerChoice() {
 	const choices = ['r','p','s'];
-	const randomNumber = Math.floor(Math.random()*3);
+	const randomNumber = Math.floor(Math.random() * 3);
 	return choices[randomNumber];
 }
 
@@ -22,33 +22,31 @@ function convertToWord(letter) {
 
 function win(userChoice, computerChoice) {
 	userScore++;
-	userScore_span.innerHTML = userScore;
-    computerScore_span.innerHTML = computerScore;
+	updateScoreDisplay();
     result_p.innerHTML = `Your ${convertToWord(userChoice)} beats Computer's ${convertToWord(computerChoice)}. You Win!`;
 	document.getElementById(userChoice).classList.add('green-glow');
-	setTimeout(function(){ document.getElementById(userChoice).classList.remove('green-glow')
-	},500);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove('green-glow') }, 500);
 }
 
 function lose(userChoice, computerChoice) {
 	computerScore++;
-	userScore_span.innerHTML = userScore;
-    computerScore_span.innerHTML = computerScore;
+	updateScoreDisplay();
     result_p.innerHTML = `Your ${convertToWord(userChoice)} loses against Computer's ${convertToWord(computerChoice)}. You Lost!`;
 	document.getElementById(userChoice).classList.add('red-glow');
-	setTimeout(function(){ document.getElementById(userChoice).classList.remove('red-glow')
-	},500);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove('red-glow') }, 500);
 }
 
 function draw(userChoice, computerChoice) {
-	userScore_span.innerHTML = userScore;
-    computerScore_span.innerHTML = computerScore;
+	updateScoreDisplay();
     result_p.innerHTML = `Your ${convertToWord(userChoice)} equals Computer's ${convertToWord(computerChoice)}. Draw!`;
 	document.getElementById(userChoice).classList.add('grey-glow');
-	setTimeout(function(){ document.getElementById(userChoice).classList.remove('grey-glow')
-	},500);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove('grey-glow') }, 500);
 }
 
+function updateScoreDisplay() {
+    userScore_span.innerHTML = userScore;
+    computerScore_span.innerHTML = computerScore;
+}
 
 function game(userChoice) {
 	const computerChoice = getComputerChoice();
