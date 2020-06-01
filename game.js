@@ -23,8 +23,8 @@ function convertToWord(letter) {
 function win(userChoice, computerChoice) {
 	userScore++;
 	userScore_span.innerHTML = userScore;
-	computerScore_span.innerHTML = computerScore;
-	result_p.innerHTML = `${convertToWord(userChoice)}(user) beats ${convertToWord(computerChoice)}(comp). You Win!`;
+    computerScore_span.innerHTML = computerScore;
+    result_p.innerHTML = `Your ${convertToWord(userChoice)} beats Computer's ${convertToWord(computerChoice)}. You Win!`;
 	document.getElementById(userChoice).classList.add('green-glow');
 	setTimeout(function(){ document.getElementById(userChoice).classList.remove('green-glow')
 	},500);
@@ -33,8 +33,8 @@ function win(userChoice, computerChoice) {
 function lose(userChoice, computerChoice) {
 	computerScore++;
 	userScore_span.innerHTML = userScore;
-	computerScore_span.innerHTML = computerScore;
-	result_p.innerHTML = `${convertToWord(userChoice)}(user) loses ${convertToWord(computerChoice)}(comp). You Lost!`;
+    computerScore_span.innerHTML = computerScore;
+    result_p.innerHTML = `Your ${convertToWord(userChoice)} loses against Computer's ${convertToWord(computerChoice)}. You Lost!`;
 	document.getElementById(userChoice).classList.add('red-glow');
 	setTimeout(function(){ document.getElementById(userChoice).classList.remove('red-glow')
 	},500);
@@ -42,12 +42,13 @@ function lose(userChoice, computerChoice) {
 
 function draw(userChoice, computerChoice) {
 	userScore_span.innerHTML = userScore;
-	computerScore_span.innerHTML = computerScore;
-	result_p.innerHTML = `${convertToWord(userChoice)}(user) equals ${convertToWord(computerChoice)}(comp). Draw!`;
+    computerScore_span.innerHTML = computerScore;
+    result_p.innerHTML = `Your ${convertToWord(userChoice)} equals Computer's ${convertToWord(computerChoice)}. Draw!`;
 	document.getElementById(userChoice).classList.add('grey-glow');
 	setTimeout(function(){ document.getElementById(userChoice).classList.remove('grey-glow')
 	},500);
 }
+
 
 function game(userChoice) {
 	const computerChoice = getComputerChoice();
@@ -84,5 +85,5 @@ function main() {
 }
 
 window.onload = function() {
-    main()
+    main();
 }
