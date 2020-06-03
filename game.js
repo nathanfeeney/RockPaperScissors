@@ -18,64 +18,72 @@ function getComputerChoice() {
 	return choices[randomNumber];
 }
 
-function win(userChoice, computerChoice) {
-	userScore++;
-	updateScoreDisplay();
-    result_p.innerHTML = `Your ${userChoice} beats Computer's ${computerChoice}. You Win!`;
-	document.getElementById(userChoice).classList.add(glowWin);
-	setTimeout(function() { document.getElementById(userChoice).classList.remove(glowWin) }, glowTime);
-}
-
-function lose(userChoice, computerChoice) {
-	computerScore++;
-	updateScoreDisplay();
-    result_p.innerHTML = `Your ${userChoice} loses against Computer's ${computerChoice}. You Lost!`;
-	document.getElementById(userChoice).classList.add(glowLose);
-	setTimeout(function() { document.getElementById(userChoice).classList.remove(glowLose) }, glowTime);
-}
-
-function draw(userChoice, computerChoice) {
-	updateScoreDisplay();
-    result_p.innerHTML = `Your ${userChoice} equals Computer's ${computerChoice}. Draw!`;
-	document.getElementById(userChoice).classList.add(glowDraw);
-	setTimeout(function() { document.getElementById(userChoice).classList.remove(glowDraw) }, glowTime);
-}
-
 function updateScoreDisplay() {
     userScore_span.innerHTML = userScore;
     computerScore_span.innerHTML = computerScore;
 }
 
+// 0 player win, 1 computer win, 2 draw
+function evaluateGame(result, userChoice, computerChoice) {
+    if (result == 0) {
+        userScore++;
+		result_p.innerHTML = `Your ${userChoice} beats Computer's ${computerChoice}. You Win!`;
+		applyResultGlow(glowWin)
+    }
+    else if (result == 1) {
+        computerScore++;
+		result_p.innerHTML = `Your ${userChoice} loses against Computer's ${computerChoice}. You Lost!`;
+		applyResultGlow(glowLose)
+    }
+    else {
+		result_p.innerHTML = `Your ${userChoice} equals Computer's ${computerChoice}. Draw!`;
+		applyResultGlow(glowDraw)
+    }
+        
+    updateScoreDisplay();
+}
+
+function applyResultGlow(glow) {
+    document.getElementById(userChoice).classList.add(glow);
+	setTimeout(function() { document.getElementById(userChoice).classList.remove(glow) }, glowTime);
+}
+
 function game(userChoice) {
 	const computerChoice = getComputerChoice();
 	console.log("computer choice =>" + computerChoice);
+
+	var result = -1;
+
 	switch (userChoice + computerChoice){
 		case "RockScissor":
 		case "PaperRock":
 		case "ScissorPaper":
-			win(userChoice, computerChoice);
+			win()
+            //result = 0;
 			break;
 		case "RockPaper":
 		case "PaperScissor":
 		case "ScissorRock":
-			lose(userChoice, computerChoice);
+            result = 1;
 			break;
 		case "RockRock":
 		case "ScissorScissor":
 		case "PaperPaper":
-			draw(userChoice, computerChoice);
+            result = 2;
 			break;
 	}
+
+	evaluateGame(result, userChoice, computerChoice);
 }
 
 function main() {
-	rock_div.addEventListener('click', function(){
+	rock_div.addEventListener('click', function() {
 		game("Rock");
 	})
-	paper_div.addEventListener('click', function(){
+	paper_div.addEventListener('click', function() {
 		game("Paper");
 	})
-	scissors_div.addEventListener('click', function(){
+	scissors_div.addEventListener('click', function() {
 		game("Scissor");
 	})
 }
