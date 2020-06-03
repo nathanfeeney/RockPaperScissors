@@ -12,6 +12,13 @@ const glowWin = "green-glow";
 const glowLose = "red-glow";
 const glowDraw = "grey-glow";
 
+// this is an "enum" or "enumerator"
+const GameResult = {
+	WIN: 0,
+	LOSE: 1,
+	DRAW: 2
+}
+
 function getComputerChoice() {
 	const choices = ['Rock', 'Paper', 'Scissor'];
 	const randomNumber = Math.floor(Math.random() * 3);
@@ -23,27 +30,26 @@ function updateScoreDisplay() {
     computerScore_span.innerHTML = computerScore;
 }
 
-// 0 player win, 1 computer win, 2 draw
 function evaluateGame(result, userChoice, computerChoice) {
-    if (result == 0) {
+    if (result == GameResult.WIN) {
         userScore++;
 		result_p.innerHTML = `Your ${userChoice} beats Computer's ${computerChoice}. You Win!`;
-		applyResultGlow(glowWin)
+		applyResultGlow(glowWin, userChoice)
     }
-    else if (result == 1) {
+    else if (result == GameResult.LOSE) {
         computerScore++;
 		result_p.innerHTML = `Your ${userChoice} loses against Computer's ${computerChoice}. You Lost!`;
-		applyResultGlow(glowLose)
+		applyResultGlow(glowLose, userChoice)
     }
     else {
 		result_p.innerHTML = `Your ${userChoice} equals Computer's ${computerChoice}. Draw!`;
-		applyResultGlow(glowDraw)
+		applyResultGlow(glowDraw, userChoice)
     }
         
     updateScoreDisplay();
 }
 
-function applyResultGlow(glow) {
+function applyResultGlow(glow, userChoice) {
     document.getElementById(userChoice).classList.add(glow);
 	setTimeout(function() { document.getElementById(userChoice).classList.remove(glow) }, glowTime);
 }
@@ -58,18 +64,17 @@ function game(userChoice) {
 		case "RockScissor":
 		case "PaperRock":
 		case "ScissorPaper":
-			win()
-            //result = 0;
+            result = GameResult.WIN;
 			break;
 		case "RockPaper":
 		case "PaperScissor":
 		case "ScissorRock":
-            result = 1;
+            result = GameResult.LOSE;
 			break;
 		case "RockRock":
 		case "ScissorScissor":
 		case "PaperPaper":
-            result = 2;
+            result = GameResult.DRAW;
 			break;
 	}
 
